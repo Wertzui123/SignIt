@@ -1,0 +1,34 @@
+name: SignIt
+
+main: Wertzui123\SignIt\Main
+
+version: 1.0.0
+
+api: 3.0.0
+
+load: POSTWORLD
+
+author: Wertzui123
+
+description: Sign items with /signit on a text!
+
+website: https://github.com/Wertzui123/SignIt
+
+commands:
+ signit:
+  description: "Signeds items"
+  usage: "/signit"
+  aliases: [sign]
+  permission: sign.wg.command
+
+permissions:
+ sign:
+  default: op
+  description: "A permission"
+  children:
+   sign.wg.command:
+    default: op
+    description: "The permission for /signit"
+//This Plugin was written by Wertzui123 and you're not allowed to modify or rewrite it!
+//To adjust it, just use the config.yml in the plugin_data/SignIt folder.
+//© 2019 Wertzui123
