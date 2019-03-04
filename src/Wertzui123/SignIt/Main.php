@@ -13,7 +13,7 @@ use pocketmine\utils\Config;
 class Main extends PluginBase implements Listener{
 
 	public function onEnable() : void{
-		$this->getLogger()->info("The SignIt plugin has been aktivatet! \nCommands:\n/signit and /sign\nThanks for using my plugin. Have Fun!");
+		$this->getLogger()->info("The SignIt plugin has been activated! \nCommands:\n/signit and /sign\nThanks for using my plugin. Have Fun!");
 	    $this->saveResource("config.yml");
 	}
 
@@ -26,6 +26,8 @@ $usage = $settings->get("usage");
 $signsucces = $settings->get("sign_succes");
 $missingpermission = $settings->get("missing_permission");
 $signer = $sender->getName();
+$lore = $settings->get("sign_format");
+$dateformat = $settings->get("date_format");
                         $now = new \DateTime("now");
 		if(!$sender instanceof Player) {
 			$sender->sendMessage($runingame);
@@ -40,9 +42,12 @@ $signer = $sender->getName();
 		if($item === null) {
 			$sender->sendMessage($pleaseholdanitem);
 		} else {
-$item->setLore(["§r§b" . "§d(" . $now->format("d.m.Y H:i") . ")§b " . $signer . ": \n§r§f" . $args[0]]);
+$lore = str_replace("{signedas}", $args[0], $lore);
+$lore = str_replace("{date}", $now->format($dateformat), $lore);
+$text = str_replace("{signedas}", $args[0], $signsucces);
+$lore = str_replace("{signer}", $sender->getName(), $lore);
+$item->setLore([$lore]);
 		$sender->getInventory()->setItemInHand($item);
-$text = str_replace("{signedas}", $args[0], $signsucces); 
      $sender->sendMessage($text);
       }
       }
@@ -53,7 +58,7 @@ $text = str_replace("{signedas}", $args[0], $signsucces);
 		}
   }
 	public function onDisable() : void{
-		$this->getLogger()->info("The SignIt plugin has been deaktivatet! Have a nice day!");
+		$this->getLogger()->info("The SignIt plugin has been deactivated! Have a nice day!");
 	}
 }
 //This Plugin was written by Wertzui123 and you're not allowed to modify or rewrite it!
