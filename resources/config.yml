@@ -1,11 +1,39 @@
 ---
-run_in_game: "§cPlease run this command in-game!"
-usage: "§cUsage: /signit <message>"
-please_hold_an_item: "§l§bSign §7> §r§aPlease hold an item in you're hand, wich can be signed!"
-signed_as: "rrr"
-sign_succes: "§l§bSign §7> §r§aYou have succesfully singed the item in you're hand to §6{signedas}§a!"
-missing_permission: "§cYou don't have the permission to sign items with /signit!"
 #This Plugin was written by Wertzui123 and you're not allowed to modify or rewrite it!
 #To adjust it, just use the config.yml in the plugin_data/SignIt folder.
 #© 2019 Wertzui123
+
+
+
+#This is the message wich appears when you try to do /signit from the console
+run_in_game: "§cPlease run this command in-game!"
+
+
+#This is the message wich appears when you do /signit withouth an argument
+usage: "§cUsage: /signit <message>"
+
+
+#This is the message wich appears when you don't hold an item in you're hand (wich is very buggy)
+please_hold_an_item: "§l§bSign §7> §r§aPlease hold an item in you're hand, wich can be signed!"
+
+
+#This is the message wich appears when you succesfully signed an item
+#{signedas} is the variable for the 1. argument
+sign_succes: "§l§bSign §7> §r§aYou have succesfully singed the item in you're hand to §6{signedas}§a!"
+
+
+#This is the message wich appears when you don't have the permission to sign items
+missing_permission: "§cYou don't have the permission to sign items with /signit!"
+
+
+#This is the format how the sign will be shown
+#{date} is the date in the below stated format
+#{signer} is the name of the player who sign the item
+#{signedas} means the message (the 1. argument) that the player signed on the item
+sign_format: "§r§d({date}) §b{signer}: \n§r§f{signedas}"
+
+
+#This is the format for the date to display
+#d=day  m=mounth  Y=Year  H=Hour  i=minute
+date_format: "d.m.Y H:i"
 ...
