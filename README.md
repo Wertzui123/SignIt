@@ -3,11 +3,12 @@
 <a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.api/SignIt"></a>
 
 <b>A pocketmine plugin to sign items on you're name, the date and a text with 
-
+<br>
 <br>/signit <text wich should be on the item>
 <br>or 
 <br>/sign <text wich should be on the item>
 </b>
+<br>
 <br>Permission for /signit: "sign.wg.command"
 <br>
 <br>If you have Questions or an idea join my Discord -> https://discord.gg/aZTeD74, and if you are german, join my Minecraft Server Comunity. Just type !ip in this server -> https://discord.gg/Mg2eJc9
