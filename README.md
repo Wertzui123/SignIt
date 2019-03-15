@@ -1,7 +1,7 @@
 # SignIt
 <a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.state/SignIt"></a>
 <a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.api/SignIt"></a>
-<br><a href="https://raw.githubusercontent.com/Wertzui123/SignIt/56c6ee8a66dd76c098b74509f2734b40c2fa4f39/SignIt.png"></a>
+<br><img src="https://raw.githubusercontent.com/Wertzui123/SignIt/56c6ee8a66dd76c098b74509f2734b40c2fa4f39/SignIt.png">
 <b>A pocketmine plugin to sign items on you're name, the date and a text with 
 <br>
 <br>/signit <text wich should be on the item>
