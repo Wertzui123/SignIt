@@ -24,9 +24,9 @@ Help = The minehub.de community and its team
 
 For the Licens see here:
 
-<b>This Plugin was written by Wertzui123 and you're not allowed to modify or rewrite it!
+<b><code>This Plugin was written by Wertzui123 and you're not allowed to modify or rewrite it!
 <br>To adjust it, just use the config.yml in the plugin_data/SignIt folder.
-<br>© 2019 Wertzui123</b>
+  <br>© 2019 Wertzui123</code></b>
 
 
 Have fun with my plugin!
