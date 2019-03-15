@@ -1,6 +1,3 @@
-<html>
-<meta charset="utf-8">
-<body>
 # SignIt
 <a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.state/SignIt"></a>
 <a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.api/SignIt"></a>
@@ -34,4 +31,3 @@ And I got help from the minehub.de community!
 <br>
 <br>
 <br><h2>Have fun with my plugin!</h2>
-</html>
