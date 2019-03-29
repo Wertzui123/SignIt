@@ -28,6 +28,12 @@ $missingpermission = $settings->get("missing_permission");
 $signer = $sender->getName();
 $lore = $settings->get("sign_format");
 $dateformat = $settings->get("date_format");
+if($this->getServer()->getPluginManager()->getPlugin("PurePerms")) {
+	$purePerms = $this->getServer()->getPluginManager()->getPlugin("PurePerms");
+    $group = $purePerms->getUserDataMgr()->getData($sender)['group'];
+} else {
+    $group = "The plugin isn't installed";
+}
                         $now = new \DateTime("now");
 		if(!$sender instanceof Player) {
 			$sender->sendMessage($runingame);
@@ -46,6 +52,8 @@ $lore = str_replace("{signedas}", $args[0], $lore);
 $lore = str_replace("{date}", $now->format($dateformat), $lore);
 $text = str_replace("{signedas}", $args[0], $signsucces);
 $lore = str_replace("{signer}", $sender->getName(), $lore);
+$lore = str_replace("{rank}", $group, $lore);
+$lore = str_replace("{group}", $group, $lore);
 $item->setLore([$lore]);
 		$sender->getInventory()->setItemInHand($item);
      $sender->sendMessage($text);
@@ -57,6 +65,7 @@ $item->setLore([$lore]);
      return true;
 		}
   }
+  
 	public function onDisable() : void{
 		$this->getLogger()->info("The SignIt plugin has been deactivated! Have a nice day!");
 	}
