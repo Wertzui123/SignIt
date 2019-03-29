@@ -30,10 +30,11 @@ missing_permission: "§cYou don't have the permission to sign items with /signit
 #{date} is the date in the below stated format
 #{signer} is the name of the player who sign the item
 #{signedas} means the message (the 1. argument) that the player signed on the item
+#{group} or {rank} is the players pureperms group
 sign_format: "§r§d({date}) §b{signer}: \n§r§f{signedas}"
 
 
 #This is the format for the date to display
 #d=day  m=mounth  Y=Year  H=Hour  i=minute
-date_format: "d.m.Y H:i"
+date_format: "m.d.Y H:i"
 ...
