@@ -1,34 +1,21 @@
 name: SignIt
-
 main: Wertzui123\SignIt\Main
-
-version: 1.0.0
-
+version: 2.0
 api: 3.0.0
-
 load: POSTWORLD
-
 author: Wertzui123
-
 description: Sign items with /signit on a text!
-
-website: https://github.com/Wertzui123/SignIt
-
-commands:
- signit:
-  description: "Signeds items"
-  usage: "/signit"
-  aliases: [sign]
-  permission: sign.wg.command
-
+website: https://discord.gg/XXkZGsP
 permissions:
- sign:
+ signit:
   default: op
-  description: "A permission"
+  description: Lets you use all features of SignIt
   children:
-   sign.wg.command:
+   signit.command:
+    children:
+     signit.command.sign:
+      default: true
+      description: Lets you use /signit
+   signit.wait.bypass:
     default: op
-    description: "The permission for /signit"
-#This Plugin was written by Wertzui123 and you're not allowed to modify or rewrite it!
-#To adjust it, just use the config.yml in the plugin_data/SignIt folder.
-#© 2019 Wertzui123
+    description: Lets you bypass the waiting time

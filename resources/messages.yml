@@ -1,0 +1,8 @@
+---
+run_ingame: '§cPlease run this command ingame!'
+no_permission: '§cYou are not allowed to use this command!'
+wait: '§cYou can use /signit again in §e{hours} hours, {minutes} minutes and {seconds} seconds§c!'
+cant_sign_air: '§cPlease hold a valid item in your main hand!'
+no_text_given: '§cPlease provide a text!'
+succes: '§aYou sign your item to §e{text}§a.'
+...
