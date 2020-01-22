@@ -14,7 +14,7 @@ permissions:
    signit.command:
     children:
      signit.command.sign:
-      default: true
+      default: op
       description: Lets you use /signit
    signit.wait.bypass:
     default: op
