@@ -11,8 +11,8 @@ Just look at the plugin.yml
 # Commands
 The command can be configured via the config.yml
 
-# Support
-Contact me on <a href="https://discord.gg/6a3AJzW">discord</a> or open an <a href="https://github.com/Wertzui123/SignIt/issues/">issue</a>.
+# Ideas, Questions and Support
+You can contact me in <a href="https://discord.gg/eGhZGtF">my discord server</a> or <a href="https://github.com/Wertzui123/SignIt/issues/new">create an issue</a>/<a href="https://github.com/Wertzui123/SignIt/discussions/new">start a discussion</a>.
 
 # Credits
 Author: Wertzui123
