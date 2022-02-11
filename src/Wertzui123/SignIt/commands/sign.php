@@ -5,9 +5,11 @@ namespace Wertzui123\SignIt\commands;
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
 use pocketmine\player\Player;
+use pocketmine\plugin\Plugin;
+use pocketmine\plugin\PluginOwned;
 use Wertzui123\SignIt\Main;
 
-class sign extends Command
+class sign extends Command implements PluginOwned
 {
 
     private $plugin;
@@ -50,6 +52,11 @@ class sign extends Command
         if (!$sender->hasPermission('signit.cooldown.bypass')) {
             $this->plugin->playerDataFile->set(strtolower($sender->getName()), time());
         }
+    }
+
+    public function getOwningPlugin(): Plugin
+    {
+        return $this->plugin;
     }
 
 }
