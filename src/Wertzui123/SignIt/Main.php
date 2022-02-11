@@ -2,100 +2,127 @@
 
 namespace Wertzui123\SignIt;
 
-use pocketmine\Player;
+use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use Wertzui123\SignIt\commands\signit;
+use Wertzui123\SignIt\commands\sign;
 
 class Main extends PluginBase
 {
 
-    private $players;
-    private $messages;
+    /** @var float */
+    const CONFIG_VERSION = 3.0;
 
-    public function onLoad()
-    {
-        $this->ConfigUpdater(2.0);
-    }
+    public $playerDataFile;
+    private $messagesFile;
 
     public function onEnable(): void
     {
-        $this->players = new Config($this->getDataFolder().'players.yml', Config::YAML);
-        $this->messages = new Config($this->getDataFolder().'messages.yml', Config::YAML);
+        $this->configUpdater();
+        $this->playerDataFile = new Config($this->getDataFolder() . 'players.json', Config::JSON);
+        $this->messagesFile = new Config($this->getDataFolder() . 'messages.yml', Config::YAML);
         $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
-        $this->getServer()->getCommandMap()->register('SignIt', new signit($this, ['command' => $this->getConfig()->getAll()['command'], 'description' => $this->getConfig()->getAll()['description'], 'aliases' => $this->getConfig()->getAll()['aliases']]));
+        $this->getServer()->getCommandMap()->register('SignIt', new sign($this));
     }
 
-    public function getNow(){
-        return time();
-    }
-
-    public function getUntil(Player $player){
-        return $this->getPlayersFile()->get(strtolower($player->getName()));
-    }
-
-    public function setUntil(Player $player, $time = null){
-        $this->getPlayersFile()->set(strtolower($player->getName()), $time ?? $this->getNow());
-    }
-
-    public function getUntilMessage($time){
-        $time = $time - $this->getNow();
-        $hours = floor($time / 3600);
-        $minutes = floor(($time / 60) % 60);
-        $seconds = $time % 60;
-        return str_replace(['{hours}', '{minutes}', '{seconds}'], [$hours, $minutes, $seconds],$this->getMessage('wait'));
-    }
-
-    public function getGroup(Player $player){
-        return ($pp = $this->getServer()->getPluginManager()->getPlugin('PurePerms')) ? $pp->getUserDataMgr()->getData($player)['group'] : 'PurePerms isn\'t installed';
-    }
-
-    public function getPlayersFile() : Config{
-        return $this->players;
-    }
-
-    public function getMessages() : Config
+    /**
+     * Returns a message from the messages file
+     * @param string $key
+     * @param array $replace [optional]
+     * @return string
+     */
+    public function getMessage($key, $replace = [])
     {
-	    return $this->messages;
+        return str_replace(array_keys($replace), $replace, $this->messagesFile->getNested($key));
     }
 
-    public function getMessage($string){
-        return $this->getMessages()->get($string);
+    /**
+     * @api
+     * Returns until when a player still has to wait before they can sign an item again
+     * @param Player $player
+     * @return int
+     */
+    public function getEndOfCooldown(Player $player)
+    {
+        return $this->playerDataFile->get(strtolower($player->getName()), 0) + $this->getConfig()->getNested('cooldown.' . $this->getPermissionGroup($player));
     }
 
-    public function getLore(Player $player, $text){
+    /**
+     * Returns the PurePerms group of a player
+     * @param Player $player
+     * @return string
+     */
+    public function getGroup(Player $player)
+    {
+        return ($pp = $this->getServer()->getPluginManager()->getPlugin('PurePerms')) ? $pp->getUserDataMgr()->getData($player)['group'] : '/';
+    }
+
+    /**
+     * Calculates the lore of an item that is being signed
+     * @param Player $player
+     * @param string $text
+     * @return string
+     */
+    public function getLore(Player $player, $text)
+    {
         $lore = $this->getConfig()->get('sign_format');
-        $lore = str_replace(['{group}', '{rank}'], $this->getGroup($player), $lore);
-        $lore = str_replace('{text}', $text, $lore);
         $lore = str_replace('{player}', $player->getName(), $lore);
-        $lore = str_replace('{date}', (new \DateTime())->format($this->getConfig()->get('lore_timeformat')), $lore);
+        $lore = str_replace('{text}', $text, $lore);
+        $lore = str_replace('{date}', (new \DateTime())->format($this->getConfig()->get('time_format')), $lore);
+        $lore = str_replace(['{group}', '{rank}'], $this->getGroup($player), $lore);
         return $lore;
     }
 
-    public function ConfigUpdater($version)
+    /**
+     * @api
+     * Returns the permission group for a player
+     * @param Player $player
+     * @return string
+     */
+    public function getPermissionGroup(Player $player)
     {
-        $cfgpath = $this->getDataFolder() . "config.yml";
-        $msgpath = $this->getDataFolder() . "messages.yml";
-        if (file_exists($cfgpath)) {
-            $cfgversion = $this->getConfig()->get("version");
-            if ($cfgversion !== $version) {
-                $this->getLogger()->info("Your config has been renamed to config-" . $cfgversion . ".yml and your messages file has been renamed to messages-" . $cfgversion . ".yml. That's because your config version wasn't the latest avable. So we created a new config and a new messages file for you!");
-                rename($cfgpath, $this->getDataFolder() . "config-" . $cfgversion . ".yml");
-                rename($msgpath, $this->getDataFolder() . "messages-" . $cfgversion . ".yml");
-                $this->saveResource("config.yml");
-                $this->saveResource("messages.yml");
+        foreach ($this->getConfig()->get('permission_groups') as $group) {
+            if ($player->hasPermission('signit.permissions.' . $group)) {
+                return $group;
             }
-        } else {
-            $this->saveResource("config.yml");
-            $this->saveResource("messages.yml");
+        }
+        return 'default';
+    }
+
+    /**
+     * Converts seconds to hours, minutes and seconds
+     * @param int $seconds
+     * @param string $message
+     * @return string
+     */
+    public function convertSeconds($seconds, $message)
+    {
+        $hours = floor($seconds / 3600);
+        $minutes = floor(($seconds / 60) % 60);
+        $seconds = $seconds % 60;
+        return str_replace(['{hours}', '{minutes}', '{seconds}'], [$hours, $minutes, $seconds], $message);
+    }
+
+    /**
+     * Checks whether the config version is the latest and updates it if it isn't
+     */
+    private function configUpdater()
+    {
+        $this->saveResource('config.yml');
+        $this->saveResource('strings.yml');
+        if ($this->getConfig()->get('config-version') !== self::CONFIG_VERSION) {
+            $config_version = $this->getConfig()->get('config-version');
+            $this->getLogger()->info("§eYour config isn't the latest. SignIt renamed your old config to §bconfig-" . $config_version . ".yml §6and created a new config. Have fun!");
+            rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config-' . $config_version . '.yml');
+            rename($this->getDataFolder() . 'strings.yml', $this->getDataFolder() . 'strings-' . $config_version . '.yml');
+            $this->saveResource('config.yml');
+            $this->saveResource('messages.yml');
         }
     }
 
-    public function onDisable()
+    public function onDisable(): void
     {
-        $this->getConfig()->save();
-        $this->getPlayersFile()->save();
-        unset($this->players);
-        unset($this->messages);
+        $this->playerDataFile->save();
     }
+
 }

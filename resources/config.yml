@@ -1,19 +1,35 @@
 ---
-version: 2.0
+# Don't edit this if you don't know what you're doing
+config-version: 3.0
 
-# COMMAND
-command: 'signit'
-description: 'Let you sign items'
-aliases: ['sign']
+# Configuration for all commands registered by SignIt
+command:
+  # The /sign command
+  sign:
+    command: "sign"
+    description: "Sign the item in your hand on a given text"
+    usage: "/sign <text: string>"
+    aliases: []
 
-# In minutes
-wait_time: 1440
-lore_timeformat: 'm.d.Y H:i'
+# Multiple permission groups can be set up to allow certain players to have shorter cooldowns
+# If a player has the permission for multiple permission groups, the first group in the list will be their permission group
+# 'default' is the default permission group
+permission_groups:
+  - vip # players need the permission signit.permissions.vip to have the cooldown from this group
+
+# The time players have to wait between signing items
+# The time is in seconds
+# 86400 seconds is one day
+# Each permission group has its own waiting time
+cooldown:
+  default: 86400
+  vip: 43200
 
 # This is the format how the sign will be shown
-# {date} is the date at wich day the player signed (date can be adjusted at "lore_timeformat")
 # {player} is the name of the player who signed the item
 # {text} the text the player signed on the item
-# {group} or {rank} is the players pureperms group
+# {date} is the date at which day the player signed the item
+# {group} or {rank} is the player's PurePerms group
 sign_format: "§r§d({date}) §b{player}: \n§r§f{text}"
+time_format: 'd.m.Y H:i'
 ...

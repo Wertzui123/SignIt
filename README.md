@@ -1,22 +1,34 @@
 # SignIt
-<a href="https://raw.githubusercontent.com/Wertzui123/SignIt/56c6ee8a66dd76c098b74509f2734b40c2fa4f39/SignIt.png"><br>
-<a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.state/SignIt"></a>
-<br><a href="https://poggit.pmmp.io/p/RenameItems"><img src="https://poggit.pmmp.io/shield.api/RenameItems"></a>
-<br>A PocketMine-MP plugin to sign the item in your hand via command.
-The .phar can be found on <a href="https://poggit.pmmp.io/p/SignIt/">poggit</a>.
+<a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.dl.total/SignIt"></a>
+<a href="https://poggit.pmmp.io/p/SignIt"><img src="https://poggit.pmmp.io/shield.dl/SignIt"></a>
+<br>SignIt is a PocketMine-MP plugin that allows you to sign items on a text.
+<br>The .phar can be found on <a href="https://poggit.pmmp.io/p/SignIt">poggit.</a>
+
+# Commands
+| Command | Description                                | Usage                | Aliases | Permission          |
+|---------|--------------------------------------------|----------------------|---------|---------------------|
+| sign    | Sign the item in your hand on a given text | /sign <text: string> | /       | signit.command.sign |
+
+**All commands can be configured in the config file.**
 
 # Permissions
-Just look at the plugin.yml
- 
-# Commands
-The command can be configured via the config.yml
+| Permission             | Description                  | Default |
+|------------------------|------------------------------|---------|
+| signit.command.sign    | Permission for /sign         | op      |
+| signit.cooldown.bypass | Lets you bypass the cooldown | op      |
 
-# Ideas, Questions and Support
-You can contact me in <a href="https://discord.gg/eGhZGtF">my discord server</a> or <a href="https://github.com/Wertzui123/SignIt/issues/new">create an issue</a>/<a href="https://github.com/Wertzui123/SignIt/discussions/new">start a discussion</a>.
+# Features
+* Highly customizable
+* Cooldowns (including multiple cooldown groups)
+* PurePerms support (`{group}` tag)
+
+# Support
+You can contact me in <a href="https://discord.gg/eGhZGtF">my discord server</a> or <a href="https://github.com/Wertzui123/SignIt/issues/new">create an issue</a>.
+
+# License and Copyright
+SignIt is licensed under the GNU General Public License v3.0. For more information: https://choosealicense.com/licenses/gpl-3.0
+<br><code>© 2019 - 2022 Wertzui123</code>
 
 # Credits
-Author: Wertzui123
-<br>Icon by: Wertzui C
-<br>
-<br>
-**Have fun with this plugin.**
+SignIt was written by @Wertzui123.
+<br>The icon was created by @Chrisi726.

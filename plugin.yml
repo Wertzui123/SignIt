@@ -1,21 +1,15 @@
 name: SignIt
 main: Wertzui123\SignIt\Main
-version: 2.0.1
-api: 3.0.0
+version: 3.0
+api: 4.0.0
 load: POSTWORLD
 author: Wertzui123
-description: Sign items with /signit on a text!
-website: https://discord.gg/XXkZGsP
+description: Sign items on a text
+website: https://github.com/Wertzui123/SignIt
 permissions:
- signit:
+ signit.command.sign:
   default: op
-  description: Lets you use all features of SignIt
-  children:
-   signit.command:
-    children:
-     signit.command.sign:
-      default: op
-      description: Lets you use /signit
-   signit.wait.bypass:
-    default: op
-    description: Lets you bypass the waiting time
+  description: Lets you use /signit
+ signit.cooldown.bypass:
+  default: op
+  description: Lets you bypass the cooldown
