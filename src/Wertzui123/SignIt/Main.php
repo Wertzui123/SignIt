@@ -111,11 +111,15 @@ class Main extends PluginBase
         $this->saveResource('config.yml');
         $this->saveResource('messages.yml');
         if ($this->getConfig()->get('config-version') !== self::CONFIG_VERSION) {
-            $config_version = $this->getConfig()->get('config-version');
-            $this->getLogger()->info("§eYour config isn't the latest. SignIt renamed your old config to §bconfig-" . $config_version . ".yml §6and created a new config. Have fun!");
-            rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config-' . $config_version . '.yml');
-            rename($this->getDataFolder() . 'messages.yml', $this->getDataFolder() . 'messages-' . $config_version . '.yml');
+            $configVersion = $this->getConfig()->get('config-version');
+            if (!$this->getConfig()->exists('config-version') && $this->getConfig()->exists('version')) { // backwards compatibility
+                $configVersion = $this->getConfig()->get('version');
+            }
+            $this->getLogger()->info("§eYour config isn't the latest. SignIt renamed your old config to §bconfig-" . $configVersion . ".yml §6and created a new config. Have fun!");
+            rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config-' . $configVersion . '.yml');
+            rename($this->getDataFolder() . 'messages.yml', $this->getDataFolder() . 'messages-' . $configVersion . '.yml');
             $this->saveResource('config.yml');
+            $this->reloadConfig();
             $this->saveResource('messages.yml');
         }
     }
