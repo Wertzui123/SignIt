@@ -109,12 +109,12 @@ class Main extends PluginBase
     private function configUpdater()
     {
         $this->saveResource('config.yml');
-        $this->saveResource('strings.yml');
+        $this->saveResource('messages.yml');
         if ($this->getConfig()->get('config-version') !== self::CONFIG_VERSION) {
             $config_version = $this->getConfig()->get('config-version');
             $this->getLogger()->info("§eYour config isn't the latest. SignIt renamed your old config to §bconfig-" . $config_version . ".yml §6and created a new config. Have fun!");
             rename($this->getDataFolder() . 'config.yml', $this->getDataFolder() . 'config-' . $config_version . '.yml');
-            rename($this->getDataFolder() . 'strings.yml', $this->getDataFolder() . 'strings-' . $config_version . '.yml');
+            rename($this->getDataFolder() . 'messages.yml', $this->getDataFolder() . 'messages-' . $config_version . '.yml');
             $this->saveResource('config.yml');
             $this->saveResource('messages.yml');
         }
