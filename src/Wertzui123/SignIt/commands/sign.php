@@ -4,6 +4,8 @@ namespace Wertzui123\SignIt\commands;
 
 use pocketmine\command\Command;
 use pocketmine\command\CommandSender;
+use pocketmine\nbt\tag\CompoundTag;
+use pocketmine\nbt\tag\ListTag;
 use pocketmine\player\Player;
 use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
@@ -44,6 +46,22 @@ class sign extends Command implements PluginOwned
             return;
         }
         $item = $sender->getInventory()->getItemInHand();
+        $signs = ($item->getNamedTag()->getListTag('Signs') ?? new ListTag())->getValue();
+        $newSign = (new CompoundTag())->setString('Author', $sender->getName())->setString('Text', implode(' ', $args))->setString('Timestamp', time())->setString('FullText', $this->plugin->getLore($sender, implode(' ', $args)));
+        if (count($signs) > 0 && $this->plugin->getConfig()->get('overrideOldSign') > 0) {
+            $item->setLore(array_filter($item->getLore(), function ($line) use ($signs) {
+                foreach ($signs as $sign) {
+                    if ($sign->getString('FullText') === $line) {
+                        return false;
+                    }
+                }
+                return true;
+            }));
+            $signs = [$newSign];
+        } else {
+            $signs[] = $newSign;
+        }
+        $item->getNamedTag()->setTag('Signs', new ListTag($signs));
         $lore = $item->getLore();
         $lore[] = $this->plugin->getLore($sender, implode(' ', $args));
         $item->setLore($lore);

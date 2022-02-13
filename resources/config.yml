@@ -1,6 +1,6 @@
 ---
 # Don't edit this if you don't know what you're doing
-config-version: 3.0
+config-version: 3.1
 
 # Configuration for all commands registered by SignIt
 command:
@@ -32,4 +32,9 @@ cooldown:
 # {group} or {rank} is the player's PurePerms group
 sign_format: "§r§d({date}) §b{player}: \n§r§f{text}"
 time_format: 'd.m.Y H:i'
+
+# If true, the old sign on an item will be replaced with the new one when signing an item
+# If false, signs will stack
+# Warning: this will not work for items that have been signed before setting this to true
+overrideOldSign: false
 ...

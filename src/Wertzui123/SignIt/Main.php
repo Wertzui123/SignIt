@@ -11,7 +11,7 @@ class Main extends PluginBase
 {
 
     /** @var float */
-    const CONFIG_VERSION = 3.0;
+    const CONFIG_VERSION = 3.1;
 
     public $playerDataFile;
     private $messagesFile;
