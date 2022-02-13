@@ -36,5 +36,6 @@ time_format: 'd.m.Y H:i'
 # If true, the old sign on an item will be replaced with the new one when signing an item
 # If false, signs will stack
 # Warning: this will not work for items that have been signed before setting this to true
+# It will also cause unexpected behavior if the sign_format is changed for items that were signed before
 overrideOldSign: false
 ...
