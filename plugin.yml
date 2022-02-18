@@ -1,6 +1,6 @@
 name: SignIt
 main: Wertzui123\SignIt\Main
-version: 3.1
+version: 3.1.1
 api: 4.0.0
 load: POSTWORLD
 author: Wertzui123

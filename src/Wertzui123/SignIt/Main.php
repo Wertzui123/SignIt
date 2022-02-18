@@ -21,7 +21,6 @@ class Main extends PluginBase
         $this->configUpdater();
         $this->playerDataFile = new Config($this->getDataFolder() . 'players.json', Config::JSON);
         $this->messagesFile = new Config($this->getDataFolder() . 'messages.yml', Config::YAML);
-        $this->getServer()->getPluginManager()->registerEvents(new EventListener($this), $this);
         $this->getServer()->getCommandMap()->register('SignIt', new sign($this));
     }
 

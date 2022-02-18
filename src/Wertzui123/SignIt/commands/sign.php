@@ -34,7 +34,7 @@ class sign extends Command implements PluginOwned
             return;
         }
         if (time() < $this->plugin->getEndOfCooldown($sender) && !$sender->hasPermission('signit.cooldown.bypass')) {
-            $sender->sendMessage($this->plugin->convertSeconds(($this->plugin->playerDataFile->get(strtolower($sender->getName())) + $this->plugin->getConfig()->getNested('cooldown.' . $this->plugin->getPermissionGroup($sender))) - time(), $this->plugin->getMessage('command.sign.cooldown')));
+            $sender->sendMessage($this->plugin->convertSeconds(($this->plugin->playerDataFile->get(strtolower($sender->getName()), 0) + $this->plugin->getConfig()->getNested('cooldown.' . $this->plugin->getPermissionGroup($sender))) - time(), $this->plugin->getMessage('command.sign.cooldown')));
             return;
         }
         if ($sender->getInventory()->getItemInHand()->isNull()) {
