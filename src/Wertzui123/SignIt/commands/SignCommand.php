@@ -11,7 +11,7 @@ use pocketmine\plugin\Plugin;
 use pocketmine\plugin\PluginOwned;
 use Wertzui123\SignIt\Main;
 
-class sign extends Command implements PluginOwned
+class SignCommand extends Command implements PluginOwned
 {
 
     private $plugin;
@@ -19,7 +19,7 @@ class sign extends Command implements PluginOwned
     public function __construct(Main $plugin)
     {
         parent::__construct($plugin->getConfig()->getNested('command.sign.command'), $plugin->getConfig()->getNested('command.sign.description'), $plugin->getConfig()->getNested('command.sign.usage'), $plugin->getConfig()->getNested('command.sign.aliases'));
-        $this->setPermission('signit.command.sign');
+        $this->setPermissions(['signit.command.sign']);
         $this->plugin = $plugin;
     }
 
@@ -29,7 +29,7 @@ class sign extends Command implements PluginOwned
             $sender->sendMessage($this->plugin->getMessage('command.sign.runIngame'));
             return;
         }
-        if (!$sender->hasPermission($this->getPermission())) {
+        if (!$sender->hasPermission($this->getPermissions()[0])) {
             $sender->sendMessage($this->plugin->getMessage('command.sign.noPermission'));
             return;
         }

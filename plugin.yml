@@ -1,7 +1,7 @@
 name: SignIt
 main: Wertzui123\SignIt\Main
-version: 3.1.1
-api: 4.0.0
+version: 3.2
+api: 5.0.0
 load: POSTWORLD
 author: Wertzui123
 description: Sign items on a text

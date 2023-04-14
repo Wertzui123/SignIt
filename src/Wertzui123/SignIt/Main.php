@@ -5,7 +5,7 @@ namespace Wertzui123\SignIt;
 use pocketmine\player\Player;
 use pocketmine\plugin\PluginBase;
 use pocketmine\utils\Config;
-use Wertzui123\SignIt\commands\sign;
+use Wertzui123\SignIt\commands\SignCommand;
 
 class Main extends PluginBase
 {
@@ -21,7 +21,7 @@ class Main extends PluginBase
         $this->configUpdater();
         $this->playerDataFile = new Config($this->getDataFolder() . 'players.json', Config::JSON);
         $this->messagesFile = new Config($this->getDataFolder() . 'messages.yml', Config::YAML);
-        $this->getServer()->getCommandMap()->register('SignIt', new sign($this));
+        $this->getServer()->getCommandMap()->register('SignIt', new SignCommand($this));
     }
 
     /**
