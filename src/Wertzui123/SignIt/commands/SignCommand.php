@@ -20,6 +20,7 @@ class SignCommand extends Command implements PluginOwned
     {
         parent::__construct($plugin->getConfig()->getNested('command.sign.command'), $plugin->getConfig()->getNested('command.sign.description'), $plugin->getConfig()->getNested('command.sign.usage'), $plugin->getConfig()->getNested('command.sign.aliases'));
         $this->setPermissions(['signit.command.sign']);
+        $this->setPermissionMessage($plugin->getMessage('command.sign.noPermission'));
         $this->plugin = $plugin;
     }
 
@@ -27,10 +28,6 @@ class SignCommand extends Command implements PluginOwned
     {
         if (!$sender instanceof Player) {
             $sender->sendMessage($this->plugin->getMessage('command.sign.runIngame'));
-            return;
-        }
-        if (!$sender->hasPermission($this->getPermissions()[0])) {
-            $sender->sendMessage($this->plugin->getMessage('command.sign.noPermission'));
             return;
         }
         if (time() < $this->plugin->getEndOfCooldown($sender) && !$sender->hasPermission('signit.cooldown.bypass')) {
